@@ -8,7 +8,7 @@ from firebase_admin import auth
 def get_firebase_user_mobile(firebase_user: auth.UserRecord) -> str:
     try:
         return (
-            firebase_user.phoneNumber
+            firebase_user.phone_number
 #             if firebase_user.phoneNumber
 #             else firebase_user.provider_data[0].email
         )
