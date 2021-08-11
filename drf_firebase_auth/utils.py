@@ -5,12 +5,12 @@ import uuid
 from firebase_admin import auth
 
 
-def get_firebase_user_email(firebase_user: auth.UserRecord) -> str:
+def get_firebase_user_mobile(firebase_user: auth.UserRecord) -> str:
     try:
         return (
-            firebase_user.email
-            if firebase_user.email
-            else firebase_user.provider_data[0].email
+            firebase_user.phoneNumber
+#             if firebase_user.phoneNumber
+#             else firebase_user.provider_data[0].email
         )
     except Exception as e:
         raise Exception(e)
