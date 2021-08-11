@@ -126,11 +126,13 @@ class FirebaseAuthentication(authentication.TokenAuthentication):
             log.info(
                 f'_get_or_create_local_user - username: {username}'
             )
+            print("Username:", username)
             try:
                 print("I am here")
                 user = User.objects.create_user(
                     username=username,
-                    mobile=mobile
+                    mobile=mobile,
+                    email=mobile+"@kbsm.com"
                 )
                 user.last_login = timezone.now()
                 if (
