@@ -22,7 +22,7 @@ from .models import (
     FirebaseUser,
     FirebaseUserProvider
 )
-from .utils import get_firebase_user_email
+from .utils import get_firebase_user_mobile
 from . import __title__
 
 log = logging.getLogger(__title__)
@@ -98,11 +98,11 @@ class FirebaseAuthentication(authentication.TokenAuthentication):
         """
         Attempts to return or create a local User from Firebase user data
         """
-        email = get_firebase_user_email(firebase_user)
-        log.info(f'_get_or_create_local_user - email: {email}')
+        mobile = get_firebase_user_mobile(firebase_user)
+        log.info(f'_get_or_create_local_user - mobile: {mobile}')
         user = None
         try:
-            user = User.objects.get(mobile=email)
+            user = User.objects.get(mobile=mobile)
             log.info(
                 f'_get_or_create_local_user - user.is_active: {user.is_active}'
             )
@@ -114,7 +114,7 @@ class FirebaseAuthentication(authentication.TokenAuthentication):
             user.save()
         except User.DoesNotExist as e:
             log.error(
-                f'_get_or_create_local_user - User.DoesNotExist: {email}'
+                f'_get_or_create_local_user - User.DoesNotExist: {mobile}'
             )
             if not api_settings.FIREBASE_CREATE_LOCAL_USER:
                 raise Exception('User is not registered to the application.')
@@ -126,7 +126,7 @@ class FirebaseAuthentication(authentication.TokenAuthentication):
             try:
                 user = User.objects.create_user(
                     username=username,
-                    mobile=email
+                    mobile=mobile
                 )
                 user.last_login = timezone.now()
                 if (
