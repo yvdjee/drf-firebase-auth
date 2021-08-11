@@ -98,7 +98,9 @@ class FirebaseAuthentication(authentication.TokenAuthentication):
         """
         Attempts to return or create a local User from Firebase user data
         """
+        print("User:", firebase_user)
         mobile = get_firebase_user_mobile(firebase_user)
+        print("mobile:", mobile)
         log.info(f'_get_or_create_local_user - mobile: {mobile}')
         user = None
         try:
@@ -106,6 +108,7 @@ class FirebaseAuthentication(authentication.TokenAuthentication):
             log.info(
                 f'_get_or_create_local_user - user.is_active: {user.is_active}'
             )
+            print("User info:", user)
             if not user.is_active:
                 raise Exception(
                     'User account is not currently active.'
@@ -124,6 +127,7 @@ class FirebaseAuthentication(authentication.TokenAuthentication):
                 f'_get_or_create_local_user - username: {username}'
             )
             try:
+                print("I am here")
                 user = User.objects.create_user(
                     username=username,
                     mobile=mobile
@@ -138,6 +142,7 @@ class FirebaseAuthentication(authentication.TokenAuthentication):
                         user.first_name = display_name[0]
                         user.last_name = display_name[1]
                 user.save()
+                print("i am here2")
             except Exception as e:
                 raise Exception(e)
         return user
