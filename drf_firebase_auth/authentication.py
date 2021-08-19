@@ -134,7 +134,7 @@ class FirebaseAuthentication(authentication.TokenAuthentication):
                     username=username,
                     mobile=mobile,
                     email=mobile+"@kbsm.com",
-                    uid=username
+                    uid=firebase_user.uid,
                 )
                 user.last_login = timezone.now()
                 if (
