@@ -129,7 +129,6 @@ class FirebaseAuthentication(authentication.TokenAuthentication):
             print("Username:", username)
             try:
                 print("I am here")
-                print(
                 user = User.objects.create_user(
                     username=username,
                     mobile=mobile,
