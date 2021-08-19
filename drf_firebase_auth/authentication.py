@@ -132,7 +132,7 @@ class FirebaseAuthentication(authentication.TokenAuthentication):
                 user = User.objects.create_user(
                     username=username,
                     mobile=mobile,
-                    email=mobile+"@kbsm.com"
+                    email=mobile+"@kbsm.com",
                     uid=firebase_user.uid
                 )
                 user.last_login = timezone.now()
