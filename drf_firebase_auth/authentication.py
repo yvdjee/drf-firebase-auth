@@ -104,7 +104,7 @@ class FirebaseAuthentication(authentication.TokenAuthentication):
         log.info(f'_get_or_create_local_user - mobile: {mobile}')
         user = None
         try:
-            user = User.objects.get(mobile=mobile)
+            user = User.objects.get(uid=firebase_user.uid)
             log.info(
                 f'_get_or_create_local_user - user.is_active: {user.is_active}'
             )
@@ -117,7 +117,7 @@ class FirebaseAuthentication(authentication.TokenAuthentication):
             user.save()
         except User.DoesNotExist as e:
             log.error(
-                f'_get_or_create_local_user - User.DoesNotExist: {mobile}'
+                f'_get_or_create_local_user - User.DoesNotExist: {firebase_user.uid}'
             )
             if not api_settings.FIREBASE_CREATE_LOCAL_USER:
                 raise Exception('User is not registered to the application.')
